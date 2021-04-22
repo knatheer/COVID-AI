@@ -1,1 +1,1 @@
-# COVID-AI
+# COVI =D-AI
