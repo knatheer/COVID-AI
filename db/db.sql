@@ -10,3 +10,11 @@ CREATE TABLE `requests` (
   `status` varchar(64) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `requests`
+  ADD PRIMARY KEY (`req_id`);
+
+
+ ALTER TABLE `requests`
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+COMMIT;
