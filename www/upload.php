@@ -106,12 +106,14 @@ $dbname = "covid";
 		// set parameters and execute
 		$img_name = $filename;
 		$size = $file_size;
-		$ip_address = echo ip_info("Visitor", "Country") . '-' .  echo ip_info("Visitor", "City");;
+		$ip_address = ip_info("Visitor", "Country") . '-' . ip_info("Visitor", "City");
 		$height = $img_height;
 		$width = $img_width;
 		$status = "new";
 		
 		$stmt->execute();
+		$conn->close();
+
 		
 		#Now it is python turn to execute.
 		#Move to another page and keep fetching the result.

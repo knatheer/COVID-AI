@@ -52,6 +52,18 @@ function doPoll(){
 		}
     });	
 }
+
+function setFeedback(fb){
+    $.post("update_feedback.php",
+    {
+      img_name: "<?php echo $img_name ?>",
+	  feedback: fb
+    },
+    function(data,status){
+		$("#feedback").hide();
+		$("#message").show();
+    });		
+}
 </script>
 <script>
 $(document).ready(function(){
@@ -67,9 +79,12 @@ $(document).ready(function(){
 <div id="summary"></div>
 <div style = "display: none" id="feedback" >
 Do you agree with the above result?<br>
-<button class="button button1">Yes</button>
-<button class="button button3">No</button>
+<button class="button button1" onclick="setFeedback('yes')">Yes</button>
+<button class="button button3" onclick="setFeedback('no')">No</button>
 </div>
-
+<div style = "display: none" id="message" >
+<button class="button button1">Thanks You!</button><br>
+<button onclick="location.href = 'upload.php';" class="button button5">Submit Another Image</button>
+</div>
 </body>
 </html>

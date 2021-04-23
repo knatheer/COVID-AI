@@ -7,8 +7,9 @@ CREATE TABLE `requests` (
   `width` int(11) NOT NULL,
   `process_time` decimal(5,5) DEFAULT NULL,
   `result` varchar(512) NOT NULL,
+  `feedback` varchar(32) DEFAULT NULL,
   `status` varchar(64) NOT NULL,
-  `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `date_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `requests`
