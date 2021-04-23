@@ -52,7 +52,7 @@ result_folder = os.path.join(base_dir,'result')
 #print(result_folder)
 
 """
-Start of:
+Start of: 
 Loading YOLO v4 network
 """
 
