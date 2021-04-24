@@ -64,10 +64,7 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
     return $output;
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "covid";
+include 'connection.php';
 
    if(isset($_FILES['image'])){
       $errors= array();
@@ -88,20 +85,21 @@ $dbname = "covid";
       if(empty($errors)==true){
 		  #Save the file in the server under the new name
          move_uploaded_file($file_tmp,"received/".$filename);
-         #echo "<br>Success<br>";
+
 		 #Create a new record in the database 
 		 // Create connection
 		 $conn = new mysqli($servername, $username, $password, $dbname);
 		 // Check connection
 		 if ($conn->connect_error) {
+      echo ("connection failed");
 			 die("Connection failed: " . $conn->connect_error);
 		}
 		#echo ("connection done");
 		// prepare and bind
 		$stmt = $conn->prepare("INSERT INTO requests (img_name, ip_address, img_size, height, width, status) VALUES (?, ?, ?, ?, ?, ?)");
-		$stmt->bind_param("ssiiis", $img_name, $size, $ip_address, $height, $width, $status);
+		$stmt->bind_param("ssiiis", $img_name, $ip_address, $size, $height, $width, $status);
 		
-		list($img_width, $img_height) = getimagesize("received/".$filename);
+    list($img_width, $img_height) = getimagesize("received/".$filename);
 		//Set the parameters
 		// set parameters and execute
 		$img_name = $filename;
@@ -110,8 +108,18 @@ $dbname = "covid";
 		$height = $img_height;
 		$width = $img_width;
 		$status = "new";
-		
+   
+   
+   	#echo($img_name . "<br>");
+		#echo($ip_address. "<br>");
+		#echo($size. "<br>");
+		#echo($height. "<br>");
+		#echo($width. "<br>");
+   #echo($status. "<br>");
+
 		$stmt->execute();
+  #$conn->commit();
+
 		$conn->close();
 
 		

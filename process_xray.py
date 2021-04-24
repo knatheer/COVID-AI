@@ -1,3 +1,5 @@
+#!/root/miniconda3/envs/yolo-env/bin/python3
+
 # Detecting Objects on Image with OpenCV deep learning library
 #
 # Algorithm:
@@ -43,14 +45,14 @@ def resize_image(src_img):
 
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="",
+  host="127.0.0.1",
+  user="natheer",
+  password="pass",
   database="covid"
 )
 
-base_dir = 'C://xampp//htdocs//covid//'
-#base_dir = '/var/www/html/covid/'
+#base_dir = 'C://xampp//htdocs//covid//'
+base_dir = '/var/www/html/covid/'
 
 received_folder = os.path.join(base_dir, 'received')
 new_folder = os.path.join(base_dir, 'new')
@@ -300,9 +302,13 @@ while True:
         # And specifying that window is resizable
 
         cv2.imwrite(os.path.join(processed_folder, file_name_new), image_BGR)
+        end_float = round(end_float,0)
+        print("***")
         print(end_float)
+        print("***")
         sql = "UPDATE requests SET status = %s, result = %s, process_time = %s WHERE img_name = %s"
         val = ("processed", msg, end_float, file_name_new)
+        print(end_float);
         print(sql)
         mycursor.execute(sql, val)
         mydb.commit()

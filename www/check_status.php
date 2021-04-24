@@ -1,17 +1,19 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "covid";
+include 'connection.php';
+
 if (isset($_POST['img_name']))
 {
+
 	$img_name = $_POST['img_name'];
+
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	// Check connection
+ 
 	if ($conn->connect_error) {
+
 		die("Connection failed: " . $conn->connect_error);
 	}
-	#echo ("connection done");
+
 	// prepare and bind
 	$stmt = $conn->prepare("SELECT img_name, result FROM requests where status = 'processed' and img_name = ?");
 	$stmt->bind_param("s", $img_name);
