@@ -38,20 +38,20 @@ def resize_image(src_img):
 
 
 mydb = mysql.connector.connect(
-#    host="127.0.0.1",
-#    user="root",
-#    password="",
-#    database="covid"
-  host="127.0.0.1",
-  user="natheer",
-  password="pass",
-  database="covid"
+    host="127.0.0.1",
+    user="root",
+    password="",
+    database="covid"
+#  host="127.0.0.1",
+#  user="natheer",
+#  password="pass",
+#  database="covid"
 )
 
 
 
-#base_dir = 'C://xampp//htdocs//covid//'
-base_dir = '/var/www/html/covid/'
+base_dir = 'C://xampp//htdocs//covid//'
+#base_dir = '/var/www/html/covid/'
 
 received_folder = os.path.join(base_dir, 'received')
 new_folder = os.path.join(base_dir, 'new')
@@ -60,8 +60,8 @@ result_folder = os.path.join(base_dir,'result')
 
 
 #Load  CNN Model
-#classifier = load_model('C://Users//Admin//PycharmProjects//COVID-AI//models//mobile_net.h5')
-classifier = load_model('/root/tools/COVID-AI/models/mobile_net.h5')
+classifier = load_model('C://Users//Admin//PycharmProjects//COVID-AI//models//mobile_net.h5')
+#classifier = load_model('/root/tools/COVID-AI/models/mobile_net.h5')
 
 #Start the loop where we read image by and image and perform prediction
 i = 0
@@ -74,7 +74,6 @@ while True:
     sql = "SELECT img_name FROM requests WHERE status ='new'"
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
-    print(i)
     #There is image receved
     if len(myresult) > 0:
         print("new file received")
@@ -88,8 +87,10 @@ while True:
         input_im = input_im / 255.
         input_im = input_im.reshape(1, 224, 224, 3)
         # Get Prediction
-        res = np.argmax(classifier.predict(input_im, 1, verbose=0), axis=1)
+        prediction_result = classifier.predict(input_im, 1, verbose=1)
+        res = np.argmax(prediction_result, axis=1)
         prediction_value = res[0]
+        print(prediction_result)
         msg = 'NORMAL'
         if prediction_value == 0:
             msg = 'COVID'
