@@ -87,19 +87,20 @@ while True:
         input_im = input_im / 255.
         input_im = input_im.reshape(1, 224, 224, 3)
         # Get Prediction
+        start = time.clock()
         prediction_result = classifier.predict(input_im, 1, verbose=1)
+        end = time.clock()
+        pred_time = end-start
         res = np.argmax(prediction_result, axis=1)
         prediction_value = res[0]
         confidence = prediction_result[0][prediction_value]
-        print(prediction_result)
         msg = 'NORMAL'
         if prediction_value == 0:
             msg = 'COVID'
         sql = "UPDATE requests SET status = %s, result = %s, process_time = %s WHERE img_name = %s"
         val = ("processed", msg, 0.0, file_name_new)
-        print(sql)
         mycursor.execute(sql, val)
         mydb.commit()
-        print(msg, str(confidence))
+        print(msg, str(confidence), str(pred_time))
     mycursor.close()
     mydb.close()
