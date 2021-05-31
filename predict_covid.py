@@ -99,8 +99,8 @@ while True:
         msg = 'NORMAL'
         if prediction_value == 0:
             msg = 'COVID'
-        sql = "UPDATE requests SET status = %s, result = %s, process_time = %s WHERE img_name = %s"
-        val = ("processed", msg, 0.0, file_name_new)
+        sql = "UPDATE requests SET status = %s, result = %s,  confidence = %s, process_time = %s  WHERE img_name = %s"
+        val = ("processed", msg, confidence, pred_time, file_name_new)
         mycursor.execute(sql, val)
         mydb.commit()
         print(msg, str(confidence)+'%', str(pred_time)+' seconds')

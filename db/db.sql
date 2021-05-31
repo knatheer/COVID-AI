@@ -31,6 +31,7 @@ CREATE TABLE `requests` (
   `width` int NOT NULL,
   `process_time` decimal(5,2) DEFAULT NULL,
   `result` varchar(512) DEFAULT NULL,
+  `confidence` decimal(5,2) DEFAULT NULL,
   `feedback` varchar(32) DEFAULT NULL,
   `status` varchar(64) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
