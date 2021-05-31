@@ -90,6 +90,7 @@ while True:
         prediction_result = classifier.predict(input_im, 1, verbose=1)
         res = np.argmax(prediction_result, axis=1)
         prediction_value = res[0]
+        confidence = prediction_result[0][prediction_value]
         print(prediction_result)
         msg = 'NORMAL'
         if prediction_value == 0:
@@ -99,6 +100,6 @@ while True:
         print(sql)
         mycursor.execute(sql, val)
         mydb.commit()
-        print(msg)
+        print(msg, str(confidence))
     mycursor.close()
     mydb.close()
