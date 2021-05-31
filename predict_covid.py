@@ -82,6 +82,7 @@ while True:
         file_name = os.path.join(received_folder, file_name_new)
         input_im = cv2.imread(file_name)
         input_original = input_im.copy()
+        input_original = resize_image(input_original)
         input_original = cv2.resize(input_original, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
         input_im = cv2.resize(input_im, (224, 224), interpolation=cv2.INTER_LINEAR)
         input_im = input_im / 255.
