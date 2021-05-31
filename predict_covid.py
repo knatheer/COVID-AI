@@ -87,7 +87,7 @@ while True:
         input_im = input_im / 255.
         input_im = input_im.reshape(1, 224, 224, 3)
         # Get Prediction
-        start = time.time.process_time()
+        start = time.process_time()
         prediction_result = classifier.predict(input_im, 1, verbose=1)
         end = time.process_time()
         pred_time = end-start
