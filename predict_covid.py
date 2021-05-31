@@ -87,9 +87,9 @@ while True:
         input_im = input_im / 255.
         input_im = input_im.reshape(1, 224, 224, 3)
         # Get Prediction
-        start = time.clock()
+        start = time.time.process_time()
         prediction_result = classifier.predict(input_im, 1, verbose=1)
-        end = time.clock()
+        end = time.process_time()
         pred_time = end-start
         res = np.argmax(prediction_result, axis=1)
         prediction_value = res[0]
