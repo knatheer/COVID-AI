@@ -90,10 +90,12 @@ while True:
         start = time.process_time()
         prediction_result = classifier.predict(input_im, 1, verbose=1)
         end = time.process_time()
-        pred_time = end-start
+        pred_time = round(end-start,2)
         res = np.argmax(prediction_result, axis=1)
         prediction_value = res[0]
         confidence = prediction_result[0][prediction_value]
+        confidence = round(confidence*100, 2)
+
         msg = 'NORMAL'
         if prediction_value == 0:
             msg = 'COVID'
@@ -101,6 +103,6 @@ while True:
         val = ("processed", msg, 0.0, file_name_new)
         mycursor.execute(sql, val)
         mydb.commit()
-        print(msg, str(confidence), str(pred_time))
+        print(msg, str(confidence)+'%', str(pred_time)+' seconds')
     mycursor.close()
     mydb.close()
