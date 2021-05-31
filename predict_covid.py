@@ -38,20 +38,20 @@ def resize_image(src_img):
 
 
 mydb = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="",
-    database="covid"
-#  host="127.0.0.1",
-#  user="natheer",
-#  password="pass",
-#  database="covid"
+#    host="127.0.0.1",
+#    user="root",
+#    password="",
+#    database="covid"
+  host="127.0.0.1",
+  user="natheer",
+  password="pass",
+  database="covid"
 )
 
 
 
-base_dir = 'C://xampp//htdocs//covid//'
-#base_dir = '/var/www/html/covid/'
+#base_dir = 'C://xampp//htdocs//covid//'
+base_dir = '/var/www/html/covid/'
 
 received_folder = os.path.join(base_dir, 'received')
 new_folder = os.path.join(base_dir, 'new')
@@ -60,8 +60,8 @@ result_folder = os.path.join(base_dir,'result')
 
 
 #Load  CNN Model
-classifier = load_model('C://Users//Admin//PycharmProjects//COVID-AI//models//mobile_net.h5')
-#classifier = load_model('/root/tools/COVID-AI/models/mobile_net.h5')
+#classifier = load_model('C://Users//Admin//PycharmProjects//COVID-AI//models//mobile_net.h5')
+classifier = load_model('/root/tools/COVID-AI/models/mobile_net.h5')
 
 #Start the loop where we read image by and image and perform prediction
 i = 0
