@@ -11,6 +11,7 @@ if (isset($_GET['img_name']))
 	
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 .button {
   background-color: #4CAF50; /* Green */
@@ -42,9 +43,10 @@ function doPoll(){
     function(data,status){
 		if (data.length > 0){
 			result = data.split('~');
-			
-			$('#my_image').attr('src', 'processed/' +  result[0]);
-			$('#summary').html(result[1]);
+			$('#my_image').attr('src', 'received/' +  result[0]);
+      $('#result_image').attr('src', result[1].toLowerCase() + '.jpg');
+      $summary = 'Confidence=' + result[2] + '%     Prediction Time = ' + result[3] + 's<br>';
+			$('#summary').html($summary);
 			$("#feedback").show();
 		}
 		else{
@@ -64,6 +66,12 @@ function setFeedback(fb){
 		$("#message").show();
     });		
 }
+
+function noFeedback(){
+		$("#feedback").hide();
+		$("#message").show();
+}
+
 </script>
 <script>
 $(document).ready(function(){
@@ -74,17 +82,19 @@ $(document).ready(function(){
 </head>
 <body>
 
-<img id="my_image"  src="wait.gif"/>
+<img id="my_image"  src="wait.gif" width="500" height="600" />
 <br>
+<img id="result_image"  src="empty.jpg" width="160" height="70" />
 <div id="summary"></div>
 <div style = "display: none" id="feedback" >
 Do you agree with the above result?<br>
 <button class="button button1" onclick="setFeedback('yes')">Yes</button>
 <button class="button button3" onclick="setFeedback('no')">No</button>
+<button class="button button3" onclick="noFeedback()">Not Sure</button>
 </div>
 <div style = "display: none" id="message" >
 <button class="button button1">Thanks You!</button><br>
-<button onclick="location.href = 'upload.php';" class="button button5">Submit Another Image</button>
+<button onclick="location.href = 'index.php';" class="button button5">Submit Another Image</button>
 </div>
 </body>
 </html>

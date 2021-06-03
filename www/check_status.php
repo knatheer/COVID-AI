@@ -15,14 +15,14 @@ if (isset($_POST['img_name']))
 	}
 
 	// prepare and bind
-	$stmt = $conn->prepare("SELECT img_name, result FROM requests where status = 'processed' and img_name = ?");
+	$stmt = $conn->prepare("SELECT img_name, result, confidence, process_time FROM requests where status = 'processed' and img_name = ?");
 	$stmt->bind_param("s", $img_name);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	if ($row = $result->fetch_assoc())
 	{
-		$result_txt = $row['img_name'];
-		$result_txt =  $result_txt . "~" . $row['result'];
+		$result_txt = $row['img_name'] . "~" . $row['result'] . "~" . $row['confidence'] . "~" . $row['process_time'];
+
 		echo($result_txt);
 	}
 	#$result->close();
